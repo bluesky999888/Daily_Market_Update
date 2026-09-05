@@ -4,6 +4,9 @@ A daily financial market briefing web application replicating the layout, data p
 
 The application is built as an installable **Progressive Web App (PWA)** for Google Chrome and mobile browsers, automated to update every weekday **30 minutes after the US market close** (16:30 US Eastern Time).
 
+- **Live Web App**: [https://jackzhang1979-cmd.github.io/Daily_Market_Update/](https://jackzhang1979-cmd.github.io/Daily_Market_Update/)
+- **GitHub Repository**: [https://github.com/jackzhang1979-cmd/Daily_Market_Update](https://github.com/jackzhang1979-cmd/Daily_Market_Update)
+
 ---
 
 ## Features
