@@ -1,0 +1,4 @@
+# Zero external dependencies required!
+# The pipeline and PWA server use Python standard library modules (urllib, json, xml, zoneinfo, http.server).
+# Optional: Google GenAI SDK if preferred over standard REST API
+# google-genai>=0.1.0

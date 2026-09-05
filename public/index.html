@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Daily Market Summary</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="description" content="Daily global market recap: US, Europe, Asia-Pacific indices, FX and commodities." />
+
+<!-- PWA Manifest & App Icons -->
+<link rel="manifest" href="/manifest.json" />
+<meta name="theme-color" content="#10141a" />
+<link rel="icon" href="/icons/icon-192.png" type="image/png" sizes="192x192" />
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Market Summary" />
+
+<style>
+  :root {
+    --bg: #eef1f4;
+    --surface: #ffffff;
+    --surface-2: #e6eaee;
+    --border: #d8dee4;
+    --text: #1a2028;
+    --text-muted: #5b6570;
+    --accent: #a5751f;
+    --accent-soft: #f2e6cf;
+    --pos: #1f8a56;
+    --pos-soft: #e3f3e9;
+    --neg: #c23b3b;
+    --neg-soft: #fbe8e7;
+    --radius: 10px;
+    --shadow: 0 1px 2px rgba(20, 24, 30, 0.06), 0 8px 24px rgba(20, 24, 30, 0.05);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #10141a;
+      --surface: #171d25;
+      --surface-2: #1e2530;
+      --border: #2a323c;
+      --text: #e8ebee;
+      --text-muted: #8b96a3;
+      --accent: #d9ac5c;
+      --accent-soft: #3a3120;
+      --pos: #3ecf8e;
+      --pos-soft: #16362a;
+      --neg: #f0716f;
+      --neg-soft: #3a2020;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 32px rgba(0, 0, 0, 0.35);
+    }
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { color-scheme: light dark; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+    container-type: inline-size;
+    container-name: page;
+  }
+  .wrap {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 40px 48px 56px;
+    padding-left: max(48px, env(safe-area-inset-left));
+    padding-right: max(48px, env(safe-area-inset-right));
+  }
+
+  header.masthead {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px 24px;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid var(--text);
+  }
+  header.masthead .title-block h1 {
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+    font-size: clamp(28px, 3.2cqw, 52px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin: 0;
+    text-wrap: balance;
+  }
+  header.masthead .title-block p {
+    margin: 6px 0 0;
+    color: var(--text-muted);
+    font-size: 15px;
+    letter-spacing: 0.02em;
+  }
+  header.masthead .controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  header.masthead .stamp {
+    text-align: right;
+    font-size: 13px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  header.masthead .stamp strong {
+    display: block;
+    color: var(--accent);
+    font-size: 15px;
+    letter-spacing: 0.06em;
+    margin-bottom: 2px;
+  }
+
+  .btn-install {
+    display: none;
+    align-items: center;
+    gap: 6px;
+    background: var(--surface);
+    color: var(--accent);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: all 0.2s ease;
+  }
+  .btn-install:hover {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+  }
+
+  .tiles {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .tile {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 0;
+  }
+  .tile .name {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .tile .level {
+    font-family: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: clamp(22px, 2.6cqw, 32px);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .tile .chg {
+    align-self: flex-start;
+    font-family: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 999px;
+  }
+  .tile .chg.pos { color: var(--pos); background: var(--pos-soft); }
+  .tile .chg.neg { color: var(--neg); background: var(--neg-soft); }
+
+  .panels {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    margin-bottom: 20px;
+  }
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 22px 24px;
+    min-width: 0;
+  }
+  .panel.full { grid-column: 1 / -1; }
+  .panel h2 {
+    margin: 0 0 12px;
+    font-size: 13.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 9px;
+  }
+  .panel ul {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 15.5px;
+  }
+  .panel li { margin-bottom: 8px; }
+  .panel li:last-child { margin-bottom: 0; }
+  .panel .figs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 14px;
+  }
+  .fig {
+    font-family: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 13.5px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 10px;
+  }
+  .fig .d { color: var(--text-muted); margin-right: 5px; }
+  .fig.pos { color: var(--pos); }
+  .fig.neg { color: var(--neg); }
+
+  footer {
+    margin-top: 8px;
+    padding-top: 16px;
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-muted);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+    align-items: center;
+  }
+  footer a { color: var(--text-muted); padding: 2px 0; text-decoration: none; }
+  footer a:hover, footer a:active { color: var(--accent); text-decoration: underline; }
+
+  /* Tablet / narrow desktop */
+  @container page (max-width: 1000px) {
+    .wrap { padding: 32px 28px 44px; }
+    .tiles { grid-template-columns: repeat(2, 1fr); }
+    .panels { grid-template-columns: 1fr; }
+  }
+
+  /* Phones */
+  @container page (max-width: 480px) {
+    .wrap { padding: 20px 16px 36px; }
+    header.masthead {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    header.masthead .stamp { text-align: left; }
+    .tiles { gap: 10px; }
+    .tile { padding: 16px 17px; }
+    .tile .level { font-size: clamp(20px, 6.5cqw, 28px); }
+    .panel { padding: 16px 17px; }
+    .panel .figs { gap: 6px; }
+  }
+
+  /* Very small phones */
+  @container page (max-width: 360px) {
+    .tiles { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="masthead">
+    <div class="title-block">
+      <h1>Daily Market Summary</h1>
+      <p id="session-label">Loading&hellip;</p>
+    </div>
+    <div class="controls">
+      <button id="install-btn" class="btn-install" title="Install as Desktop/Mobile App">
+        &#8862; Install App
+      </button>
+      <div class="stamp">
+        <strong>Global wrap</strong>
+        US close &rarr; Europe close &rarr; Asia close
+      </div>
+    </div>
+  </header>
+
+  <section class="tiles" id="tiles"></section>
+  <section class="panels" id="panels"></section>
+
+  <footer id="footer"></footer>
+</div>
+
+<script>
+// Register Service Worker for PWA
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('/sw.js').catch(function (err) {
+      console.warn('SW registration failed:', err);
+    });
+  });
+}
+
+// PWA Installation handling
+var deferredPrompt;
+var installBtn = document.getElementById('install-btn');
+
+window.addEventListener('beforeinstallprompt', function (e) {
+  e.preventDefault();
+  deferredPrompt = e;
+  if (installBtn) {
+    installBtn.style.display = 'inline-flex';
+    installBtn.addEventListener('click', function () {
+      installBtn.style.display = 'none';
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(function () {
+          deferredPrompt = null;
+        });
+      }
+    });
+  }
+});
+
+window.addEventListener('appinstalled', function () {
+  if (installBtn) installBtn.style.display = 'none';
+  deferredPrompt = null;
+});
+
+(function () {
+  var PANELS = [
+    { key: "us",            title: "US Equities",                  tiles: ["S&P 500", "Nasdaq Composite", "Dow Jones"], group: "us" },
+    { key: "europe",        title: "Europe",                       tiles: ["FTSE 100", "DAX"],                          group: "europe" },
+    { key: "asia",          title: "Asia-Pacific",                 tiles: ["Nikkei 225", "Hang Seng", "ASX 200"] },
+    { key: "fx",            title: "FX",                           group: "fx" },
+    { key: "commodities",   title: "Commodities",                  group: "commodities", full: true },
+    { key: "central_banks", title: "Central Banks &amp; Economic Data", full: true }
+  ];
+
+  function esc(s) {
+    return String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  function fmtLevel(row) {
+    var d = typeof row.decimals === "number" ? row.decimals : 2;
+    var n = Number(row.level).toLocaleString("en-US", {
+      minimumFractionDigits: d, maximumFractionDigits: d
+    });
+    if (row.unit === "$") return "$" + n;
+    if (row.unit === "%") return n + "%";
+    return n;
+  }
+
+  function fmtPct(pct) {
+    return (pct >= 0 ? "+" : "\u2212") + Math.abs(pct).toFixed(2) + "%";
+  }
+
+  function byName(list, name) {
+    if (!list) return null;
+    for (var i = 0; i < list.length; i++) if (list[i].name === name) return list[i];
+    return null;
+  }
+
+  function renderTiles(market) {
+    var host = document.getElementById("tiles");
+    if (!host || !market || !market.tiles) return;
+    host.innerHTML = market.tiles.map(function (row, i) {
+      var up = row.pct >= 0;
+      return '<div class="tile" style="--i:' + i + '">' +
+        '<div class="name">' + esc(row.name) + "</div>" +
+        '<div class="level">' + fmtLevel(row) + "</div>" +
+        '<div class="chg ' + (up ? "pos" : "neg") + '">' +
+          (up ? "&#9650;" : "&#9660;") + " " + Math.abs(row.pct).toFixed(2) + "%" +
+        "</div></div>";
+    }).join("");
+  }
+
+  function figFor(row) {
+    var cls = row.pct >= 0 ? "pos" : "neg";
+    return '<span class="fig"><span class="d">' + esc(row.name) + "</span>" +
+      fmtLevel(row) + ' <span class="' + cls + '">' + fmtPct(row.pct) + "</span></span>";
+  }
+
+  function renderPanels(market, commentary) {
+    var host = document.getElementById("panels");
+    if (!host) return;
+    var bullets = (commentary && commentary.panels) || {};
+
+    host.innerHTML = PANELS.map(function (p, i) {
+      var figs = [];
+      (p.tiles || []).forEach(function (n) {
+        var r = byName(market.tiles, n); if (r) figs.push(figFor(r));
+      });
+      if (p.group && market.extras) {
+        market.extras.forEach(function (r) {
+          if (r.group === p.group) figs.push(figFor(r));
+        });
+      }
+
+      var lines = bullets[p.key] || [];
+      var ul = lines.length
+        ? "<ul>" + lines.map(function (t) { return "<li>" + t + "</li>"; }).join("") + "</ul>"
+        : "";
+      var figsHtml = figs.length ? '<div class="figs">' + figs.join("") + "</div>" : "";
+
+      return '<div class="panel' + (p.full ? " full" : "") + '" style="--i:' + i + '">' +
+        "<h2>" + p.title + "</h2>" + ul + figsHtml + "</div>";
+    }).join("");
+  }
+
+  function renderFooter(market, commentary) {
+    var host = document.getElementById("footer");
+    if (!host) return;
+    var srcs = (commentary && commentary.sources) || [];
+    var parts = ["<span>Sources:</span>"];
+    srcs.forEach(function (s) {
+      if (s && s.url) {
+        parts.push('<a href="' + esc(s.url) + '" target="_blank" rel="noopener noreferrer">' +
+                   esc(s.name || s.url) + "</a>");
+      }
+    });
+    if (market && market.updated) {
+      parts.push("<span>Data updated " + esc(market.updated.replace("T", " ").replace("Z", " UTC")) + "</span>");
+    }
+    if (market && market.errors && market.errors.length) {
+      parts.push("<span>" + market.errors.length + " feed(s) unavailable</span>");
+    }
+    host.innerHTML = parts.join("");
+  }
+
+  function sessionLabel(market, commentary) {
+    if (commentary && commentary.session_label) return commentary.session_label;
+    if (!market || !market.tiles) return "";
+    var dates = market.tiles.map(function (r) { return r.session_date; })
+                            .filter(Boolean).sort();
+    if (!dates.length) return "";
+    var d = new Date(dates[dates.length - 1] + "T00:00:00Z");
+    return d.toLocaleDateString("en-US", {
+      weekday: "short", day: "numeric", month: "short", year: "numeric", timeZone: "UTC"
+    }) + " session";
+  }
+
+  function bust(u) { return u + "?t=" + Date.now(); }
+
+  Promise.all([
+    fetch(bust("market.json")).then(function (r) {
+      if (!r.ok) throw new Error("market.json " + r.status);
+      return r.json();
+    }),
+    fetch(bust("commentary.json")).then(function (r) {
+      return r.ok ? r.json() : null;
+    }).catch(function () { return null; })
+  ]).then(function (res) {
+    var market = res[0], commentary = res[1];
+    document.getElementById("session-label").textContent = sessionLabel(market, commentary);
+    renderTiles(market);
+    renderPanels(market, commentary);
+    renderFooter(market, commentary);
+  }).catch(function (e) {
+    document.getElementById("session-label").textContent = "Market data unavailable";
+    document.getElementById("panels").innerHTML =
+      '<div class="panel full"><h2>Error</h2><ul><li>Could not load market data: ' +
+      esc(e.message) + "</li></ul></div>";
+  });
+})();
+</script>
+
+</body>
+</html>

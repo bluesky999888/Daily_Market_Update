@@ -1,0 +1,215 @@
+{
+  "updated": "2026-09-05T00:26:02Z",
+  "tiles": [
+    {
+      "name": "S&P 500",
+      "symbol": "^GSPC",
+      "decimals": 2,
+      "level": 7718.6,
+      "change": 6.8400000000001455,
+      "pct": 0.08869570629791572,
+      "session_date": "2026-09-04",
+      "currency": "USD"
+    },
+    {
+      "name": "Nasdaq Composite",
+      "symbol": "^IXIC",
+      "decimals": 2,
+      "level": 26506.99,
+      "change": 104.57000000000335,
+      "pct": 0.39606217914874225,
+      "session_date": "2026-09-04",
+      "currency": "USD"
+    },
+    {
+      "name": "Dow Jones",
+      "symbol": "^DJI",
+      "decimals": 2,
+      "level": 53414.25,
+      "change": -145.73999999999796,
+      "pct": -0.2721061000944884,
+      "session_date": "2026-09-04",
+      "currency": "USD"
+    },
+    {
+      "name": "FTSE 100",
+      "symbol": "^FTSE",
+      "decimals": 1,
+      "level": 10831.09,
+      "change": 38.590000000000146,
+      "pct": 0.35756312253880146,
+      "session_date": "2026-09-04",
+      "currency": "GBP"
+    },
+    {
+      "name": "DAX",
+      "symbol": "^GDAXI",
+      "decimals": 1,
+      "level": 26046.4,
+      "change": -523.5900000000001,
+      "pct": -1.9706066882223143,
+      "session_date": "2026-09-04",
+      "currency": "EUR"
+    },
+    {
+      "name": "Nikkei 225",
+      "symbol": "^N225",
+      "decimals": 1,
+      "level": 65020.94,
+      "change": -1290.9899999999907,
+      "pct": -1.9468442556263872,
+      "session_date": "2026-09-04",
+      "currency": "JPY"
+    },
+    {
+      "name": "Hang Seng",
+      "symbol": "^HSI",
+      "decimals": 1,
+      "level": 25650.87,
+      "change": 66.07999999999811,
+      "pct": 0.258278453721911,
+      "session_date": "2026-09-04",
+      "currency": "HKD"
+    },
+    {
+      "name": "ASX 200",
+      "symbol": "^AXJO",
+      "decimals": 1,
+      "level": 9005.9,
+      "change": -86.39999999999964,
+      "pct": -0.9502546110445064,
+      "session_date": "2026-09-04",
+      "currency": "AUD"
+    }
+  ],
+  "extras": [
+    {
+      "name": "CAC 40",
+      "symbol": "^FCHI",
+      "decimals": 1,
+      "level": 8278.77,
+      "change": -55.72999999999956,
+      "pct": -0.668666386705856,
+      "session_date": "2026-09-04",
+      "currency": "EUR",
+      "group": "europe"
+    },
+    {
+      "name": "10Y yield",
+      "symbol": "^TNX",
+      "decimals": 2,
+      "level": 4.784,
+      "change": 0.0259999999999998,
+      "pct": 0.5464480874316898,
+      "session_date": "2026-09-04",
+      "currency": "USD",
+      "group": "us",
+      "unit": "%"
+    },
+    {
+      "name": "30Y yield",
+      "symbol": "^TYX",
+      "decimals": 2,
+      "level": 5.246,
+      "change": -0.0029999999999992255,
+      "pct": -0.057153743570189104,
+      "session_date": "2026-09-04",
+      "currency": "USD",
+      "group": "us",
+      "unit": "%"
+    },
+    {
+      "name": "DXY",
+      "symbol": "DX-Y.NYB",
+      "decimals": 2,
+      "level": 99.157,
+      "change": -0.27300000000001035,
+      "pct": -0.27456502061753024,
+      "session_date": "2026-09-04",
+      "currency": "USD",
+      "group": "fx"
+    },
+    {
+      "name": "USD/JPY",
+      "symbol": "JPY=X",
+      "decimals": 2,
+      "level": 156.221,
+      "change": -3.9010000000000105,
+      "pct": -2.436267346148568,
+      "session_date": "2026-09-04",
+      "currency": "JPY",
+      "group": "fx"
+    },
+    {
+      "name": "EUR/USD",
+      "symbol": "EURUSD=X",
+      "decimals": 4,
+      "level": 1.1621,
+      "change": 0.0031999999999998696,
+      "pct": 0.2761239106048727,
+      "session_date": "2026-09-04",
+      "currency": "USD",
+      "group": "fx"
+    },
+    {
+      "name": "AUD/USD",
+      "symbol": "AUDUSD=X",
+      "decimals": 4,
+      "level": 0.7205,
+      "change": 0.0041999999999999815,
+      "pct": 0.5863465028619268,
+      "session_date": "2026-09-04",
+      "currency": "USD",
+      "group": "fx"
+    },
+    {
+      "name": "WTI Crude",
+      "symbol": "CL=F",
+      "decimals": 2,
+      "level": 91.22,
+      "change": 5.459999999999994,
+      "pct": 6.366604477611933,
+      "session_date": "2026-09-04",
+      "currency": "USD",
+      "group": "commodities",
+      "unit": "$"
+    },
+    {
+      "name": "Brent Crude",
+      "symbol": "BZ=F",
+      "decimals": 2,
+      "level": 95.83,
+      "change": 5.340000000000003,
+      "pct": 5.9012045529892845,
+      "session_date": "2026-09-04",
+      "currency": "USD",
+      "group": "commodities",
+      "unit": "$"
+    },
+    {
+      "name": "Gold",
+      "symbol": "GC=F",
+      "decimals": 2,
+      "level": 4477.2,
+      "change": 46.099999999999454,
+      "pct": 1.0403737221005946,
+      "session_date": "2026-09-04",
+      "currency": "USD",
+      "group": "commodities",
+      "unit": "$"
+    },
+    {
+      "name": "Bitcoin",
+      "symbol": "BTC-USD",
+      "decimals": 0,
+      "level": 79665.28,
+      "change": 2261.654999999999,
+      "pct": 2.9218980377211,
+      "session_date": "2026-09-05",
+      "currency": "USD",
+      "group": "commodities",
+      "unit": "$"
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,62 @@
+{
+  "session_label": "Fri, 4 Sep 2026 session",
+  "panels": {
+    "us": [
+      "Technology stocks spearheaded market gains as sustained enterprise demand for artificial intelligence infrastructure boosted investor sentiment, lifting the <strong>Nasdaq Composite</strong> and the <strong>S&P 500</strong> despite weakness in traditional industrial components.",
+      "Longer-dated <strong>Treasury yields</strong> pushed higher across the curve, reflecting recalibrated interest rate expectations as energy market volatility reignited broader inflation concerns, pulling back cyclical components on the <strong>Dow Jones</strong>."
+    ],
+    "europe": [
+      "European equity benchmarks diverged markedly as surging commodity prices weighed on industrial and consumer sectors, driving heavy selling across the <strong>DAX</strong> and the <strong>CAC 40</strong>.",
+      "In contrast, the <strong>FTSE 100</strong> outperformed its regional peers, supported by strong performance among heavy-weight energy producers and resource extraction firms capitalising on rising global commodity prices."
+    ],
+    "asia": [
+      "Asia-Pacific markets traded predominantly lower, dominated by a steep drop in the <strong>Nikkei 225</strong> as rapid appreciation in the regional currency pressured major export-oriented manufacturers.",
+      "Greater China markets showed relative resilience, with the <strong>Hang Seng</strong> achieving modest gains on selective tech buyer interest, while the <strong>ASX 200</strong> was dragged down by banking equities despite energy sector strength."
+    ],
+    "fx": [
+      "The <strong>US Dollar Index (DXY)</strong> softened against major peers, heavily impacted by a dramatic rally in the <strong>Japanese yen</strong> following heightened speculation regarding currency policy coordination.",
+      "Commodity-linked currencies logged solid advances, with the <strong>Australian dollar</strong> and the <strong>euro</strong> strengthening against the greenback as elevated raw material and energy prices buoyed foreign exchange flows."
+    ],
+    "commodities": [
+      "Crude markets surged sharply, with both <strong>WTI crude</strong> and <strong>Brent crude</strong> posting massive gains amid mounting geopolitical risk premiums and physical supply tightening.",
+      "Safe-haven assets and digital tokens both found strong buying interest, as <strong>Gold</strong> advanced on broader geopolitical hedging while <strong>Bitcoin</strong> tracked momentum in global tech risk assets."
+    ],
+    "central_banks": [
+      "The <strong>Federal Reserve</strong> faces a heightened policy dilemma as a sudden rally in energy prices threatens to stall recent disinflation progress, potentially delaying future interest rate cuts.",
+      "Elevated benchmark <strong>Treasury yields</strong> signal growing bond market consensus that monetary authorities will maintain restrictive policy settings for longer to anchor inflation expectations.",
+      "Global central banks, including the <strong>European Central Bank</strong> and the <strong>Bank of Japan</strong>, remain on high alert as energy price spikes and foreign exchange fluctuations complicate their domestic policy trajectories."
+    ]
+  },
+  "sources": [
+    {
+      "name": "Yahoo Finance - HPE CEO on AI boom",
+      "url": "https://finance.yahoo.com/markets/stocks/article/hpe-ceo-on-ai-boom-customers-are-buying-everything-164808652.html"
+    },
+    {
+      "name": "Barron's - Moderna Cancer Vaccine Rally",
+      "url": "https://www.barrons.com/articles/moderna-stock-cancer-vaccine-sell-rating-bdcb2ced?siteid=yhoof2&yptr=yahoo"
+    },
+    {
+      "name": "Investor's Business Daily - Oracle AI Wave",
+      "url": "https://www.investors.com/news/technology/oracle-stock-q1-2027-earnings-ai-openai/?src=A00220&yptr=yahoo"
+    },
+    {
+      "name": "Yahoo Finance - Bank of America Warning",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/bank-americas-warning-concern-stock-164700303.html"
+    },
+    {
+      "name": "Yahoo Finance - CrowdStrike Outlook",
+      "url": "https://finance.yahoo.com/technology/ai/articles/jim-cramer-calls-crowdstrike-crwd-171714906.html"
+    },
+    {
+      "name": "Bloomberg Markets",
+      "url": "https://www.bloomberg.com/markets"
+    },
+    {
+      "name": "Reuters Financial News",
+      "url": "https://www.reuters.com/business"
+    }
+  ],
+  "_comment": "Prose authored by Gemini 3.6 Flash. Numbers live in market.json.",
+  "updated": "2026-09-05T00:26:35Z"
+}

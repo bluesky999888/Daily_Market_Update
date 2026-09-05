@@ -1,0 +1,66 @@
+name: Daily Market Summary Update
+
+on:
+  schedule:
+    # 20:30 UTC on Mon-Fri corresponds to 16:30 EDT (30 mins after US close during Daylight Saving)
+    # (During standard EST winter, 21:30 UTC corresponds to 16:30 EST)
+    - cron: '30 20 * * 1-5'
+    - cron: '30 21 * * 1-5'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  update-summary:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Run update pipeline
+        env:
+          GOOGLE_AI_API_KEY: ${{ secrets.GOOGLE_AI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python update.py
+
+      - name: Commit and push if changed
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/market.json public/commentary.json
+          if git diff --staged --quiet; then
+            echo "No data changes to commit"
+          else
+            git commit -m "chore(data): automated daily market update [skip ci]"
+            git push
+          fi
+
+      - name: Deploy to GitHub Pages (optional)
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'public'
+        continue-on-error: true
+
+  deploy-pages:
+    needs: update-summary
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        continue-on-error: true
