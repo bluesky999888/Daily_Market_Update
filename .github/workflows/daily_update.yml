@@ -9,12 +9,12 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
 jobs:
-  update-summary:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -30,37 +30,18 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      - name: Run update pipeline
+      - name: Run update pipeline (overwrites market.json & commentary.json)
         env:
           GOOGLE_AI_API_KEY: ${{ secrets.GOOGLE_AI_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           python update.py
 
-      - name: Commit and push if changed
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/market.json public/commentary.json
-          if git diff --staged --quiet; then
-            echo "No data changes to commit"
-          else
-            git commit -m "chore(data): automated daily market update [skip ci]"
-            git push
-          fi
-
-      - name: Deploy to GitHub Pages (optional)
+      - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: 'public'
-        continue-on-error: true
 
-  deploy-pages:
-    needs: update-summary
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages (overwrites live site)
         id: deployment
         uses: actions/deploy-pages@v4
-        continue-on-error: true
