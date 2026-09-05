@@ -57,7 +57,7 @@ jobs:
 
   deploy-pages:
     needs: update-summary
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to GitHub Pages
