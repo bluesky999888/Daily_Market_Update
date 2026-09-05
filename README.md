@@ -1,6 +1,6 @@
 # Daily Market Summary PWA
 
-A daily financial market briefing web application replicating the layout, data points, and editorial coverage of [market-summary-12550.web.app](https://market-summary-12550.web.app/).
+A daily financial market briefing web application.
 
 The application is built as an installable **Progressive Web App (PWA)** for Google Chrome and mobile browsers, automated to update every weekday **30 minutes after the US market close** (16:30 US Eastern Time).
 
